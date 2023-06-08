@@ -27,12 +27,30 @@
                     value="<?= $password_lenght ?>">
             </div>
 
+            <div class="form-check">
+                <label class="form-check-label" for="letters">Lettere</label>
+                <input class="form-check-input" type="checkbox" name="types[]" value="letters" id="letters"
+                    <?= $types && in_array("letters", $types) ? "checked" : "" ?>>
+            </div>
+
+            <div class="form-check">
+                <label class="form-check-label" for="numbers">Numeri</label>
+                <input class="form-check-input" type="checkbox" name="types[]" value="numbers" id="numbers"
+                    <?= $types && in_array("numbers", $types) ? "checked" : "" ?>>
+            </div>
+
+            <div class="form-check">
+                <label class="form-check-label" for="symbols">Simboli</label>
+                <input class="form-check-input" type="checkbox" name="types[]" value="symbols" id="symbols"
+                    <?= $types && in_array("symbols", $types) ? "checked" : "" ?>>
+            </div>
+
             <button type="submit" class="btn btn-primary">Genera</button>
             <a href="/php-strong-password-generator" class="btn btn-secondary">Annulla</a>
         </form>
 
         <h2 class="text-center">
-            <?= $password_lenght ? generate_password($password_lenght) : $no_parameters_alert ?>
+            <?= $password_lenght && $types ? generate_password($password_lenght, $types) : $no_parameters_alert ?>
         </h2>
     </div>
 </body>
