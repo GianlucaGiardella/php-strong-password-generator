@@ -1,19 +1,29 @@
 <?php
 
-$password_lenght = isset($_GET['password_lenght']) ? $_GET['password_lenght'] : false;
+$password_lenght = $_GET['password_lenght'] ?? false;
 
-$types = isset($_GET['types']) ? $_GET['types'] : false;
+$types = $_GET['types'] ?? false;
 
-$no_parameters_alert = "Inserisci un parametro";
+$repeat = $_GET['repeat'] ?? "0";
 
-function generate_password($lenght, $types)
+$no_parameters_alert = "Inserisci i parametri";
+
+function generate_password($lenght, $types, $repeat)
 {
     $password = "";
     $characters = selected_characters($types);
 
-    for ($i = 0; $i < $lenght; $i++) {
+    while (strlen($password) < $lenght) {
         $index = rand(0, strlen($characters) - 1);
-        $password .= $characters[$index];
+        $random_character = $characters[$index];
+
+        if ($repeat) {
+            $password .= $random_character;
+        } else {
+            if (!str_contains($password, $random_character)) {
+                $password .= $random_character;
+            }
+        }
     }
 
     return trim($password, " ");
